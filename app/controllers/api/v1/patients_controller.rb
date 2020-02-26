@@ -34,15 +34,12 @@ module Api
         json_response(@patient.errors, 422)
       end
 
+      # search for existing patients
       def search
-        query_params = []
-        for k,v in params[:patient] do
-          query_params.push("#{k} like '%#{v}' and")
-        end
-        @result = Patient.search(query_params.to_s[1..-7].gsub(',', '').gsub('"', ''))
-        json_response(@result)
+        @utils = UtilsController.new
+        query_params = @utils.construct_like_search_query(params[:patient])
+        json_response(Patient.search(query_params));
       end
-
 
       # DELETE /patients/1
       def destroy

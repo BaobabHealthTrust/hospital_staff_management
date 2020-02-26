@@ -23,6 +23,11 @@ module Api
                 json_response(@user)
             end
             
+            def search
+                @utils = UtilsController.new
+                query_param = @utils.construct_like_search_query(params[:user])
+                json_response(User.search(query_param))
+            end
 
             def update
                 @user = User.find(params[:id])
