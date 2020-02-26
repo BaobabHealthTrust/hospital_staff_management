@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  encounter_type: MyString
+  weight: 1
+  height: 1
+  temperature: 1
+  BP: 1
+  voided: false
+  voided_reason: MyString
+  voided_date: 2020-02-24
+  patient: one
+
+two:
+  encounter_type: MyString
+  weight: 1
+  height: 1
+  temperature: 1
+  BP: 1
+  voided: false
+  voided_reason: MyString
+  voided_date: 2020-02-24
+  patient: two
