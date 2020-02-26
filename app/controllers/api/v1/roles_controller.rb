@@ -18,12 +18,16 @@ module Api
       # POST /roles
       def create
         @exists = Role.find_by(role_name: params[:role_name])
-        json_response("Role Already Exists", 409)
+        if @exists
+          json_response("Role Already Exists", 409)
         return
+        end
         @role = Role.new(role_params)
         if @role.save
           json_response(@role)
+          return
         end
+        json_response(@role.errors)
       end
 
       # PATCH/PUT /roles/1
