@@ -24,7 +24,8 @@ module Api
             end
             
 
-            def edit
+            def update
+                @user = User.find(params[:id])
                 if !@user.update(user_params)
                     json_response(@user.errors, 422)
                     return
