@@ -1,6 +1,7 @@
 module Api
   module V1
     class EncountersController < ApplicationController
+      before_action :get_patient
       before_action :set_encounter, only: [:show, :update, :destroy]
 
       # GET /encounters
@@ -43,6 +44,10 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_encounter
           @encounter = Encounter.find(params[:id])
+        end
+
+        def get_patient
+          @patient = Patient.find(params[:patient_id])
         end
 
         # Only allow a trusted parameter "white list" through.
