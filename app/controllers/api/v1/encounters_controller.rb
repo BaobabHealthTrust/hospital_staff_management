@@ -1,7 +1,7 @@
 module Api
   module V1
     class EncountersController < ApplicationController
-      before_action :get_patient
+      before_action :get_patient, only: [:update, :create]
       before_action :set_encounter, only: [:show, :update, :destroy]
 
       # GET /encounters
@@ -19,6 +19,7 @@ module Api
       # POST /encounters
       def create
         @encounter = Encounter.new(encounter_params)
+        @encounter.user_id = @current_user.id
         if @encounter.save
           json_response(@encounter)
           return

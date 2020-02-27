@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :users
       post 'patients/search', to: 'patients#search'
       post 'users/search', to: 'users#search'
+      post 'reports/patient_allocation', to: 'reports#staff_patient_allocation_count'
+      post 'reports/encounters_by_staff', to: 'reports#get_patient_encounters_by_staff'
     end
   end
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -1,7 +1,7 @@
 module Api
     module V1
         class UsersController < ApplicationController
-            before_action :find_role
+            before_action :find_role, only: [:update, :create]
             wrap_parameters :user, include: [:username, :password, :password_confirmation, :email, :date_of_birth, :role_id]
 
 

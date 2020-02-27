@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_064046) do
+ActiveRecord::Schema.define(version: 2020_02_27_125311) do
 
   create_table "allocations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "allocation_date"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_064046) do
     t.bigint "patient_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["patient_id"], name: "index_encounters_on_patient_id"
   end
 

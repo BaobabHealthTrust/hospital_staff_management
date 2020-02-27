@@ -1,6 +1,7 @@
 module Api
   module V1
     class AllocationsController < ApplicationController
+      before_action :get_assignees, only: [:update, :create]
       before_action :set_allocation, only: [:show, :update, :destroy]
 
       # GET /allocations
@@ -18,10 +19,19 @@ module Api
       # POST /allocations
       def create
         @allocation = Allocation.new(allocation_params)
-        if @allocation.save
-          json_response(@allocation)
-        return
-        end
+          if @allocation.save
+            begin   
+              @encounter = Encounter.find(params[:encounter_id])
+              @patient = Patient.find(@encounter.patient_id)
+              @user = User.find(params[:assigned_to])
+              AllocationMailer.with(email_from: @from, to:@to, patient: @patient, user: @user).allocated_patient_mail.deliver_later
+            rescue => e
+              json_response("Saved allocation but Failed to send email #{e}")
+              return
+            end
+            json_response(@allocation)
+            return
+          end
         json_response(@allocation.errors, 422)
       end
 
@@ -43,6 +53,10 @@ module Api
         # Use callbacks to share common setup or constraints between actions.
         def set_allocation
           @allocation = Allocation.find(params[:id])
+        end
+
+        def get_assignees
+          @assigned_by = User.find(params[:assigned_by])
         end
 
         # Only allow a trusted parameter "white list" through.

@@ -10,4 +10,9 @@ class UtilsController < ApplicationController
         end
         return query_params.to_s[1..-7].gsub(',', '').gsub('"', '')
     end
+
+    def send_email
+    end
+
+    
 end
