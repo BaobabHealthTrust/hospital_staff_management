@@ -1,7 +1,7 @@
 module Api
     module V1
         class UsersController < ApplicationController
-
+            before_action :find_role
             wrap_parameters :user, include: [:username, :password, :password_confirmation, :email, :date_of_birth, :role_id]
 
 
@@ -44,6 +44,11 @@ module Api
             end
 
             private
+
+            def find_role
+                @role = Role.find(params[:role_id])
+            end
+
             def user_params
                 params.require(:user).permit(:username, :password, :password_confirmation, :email, :date_of_birth, :role_id)
             end
