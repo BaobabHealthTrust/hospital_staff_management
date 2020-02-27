@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_084623) do
+ActiveRecord::Schema.define(version: 2020_02_27_064046) do
 
   create_table "allocations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "allocation_date"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_02_26_084623) do
     t.boolean "voided"
     t.string "voided_reason"
     t.date "voided_date"
+    t.string "gender"
   end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

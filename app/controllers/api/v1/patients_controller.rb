@@ -55,7 +55,7 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def patient_params
-          params.require(:patient).permit(:first_name, :middle_name, :family_name, :date_of_birth, :email, :address, :phone_number)
+          params.require(:patient).permit(:first_name, :middle_name, :family_name, :date_of_birth, :email, :address, :phone_number, :gender)
         end
     end
   end
