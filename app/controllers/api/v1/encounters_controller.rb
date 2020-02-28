@@ -10,6 +10,11 @@ module Api
         json_response(@encounters)
       end
 
+      def get_patient_encounters
+        @encounters = Encounter.where("patient_id = %s" % params[:patient_id])
+        json_response({patient: Patient.find(params[:patient_id]), encounters: @encounters })
+      end
+
       # GET /encounters/1
       def show
         @encounter = Encounter.find(params[:id])

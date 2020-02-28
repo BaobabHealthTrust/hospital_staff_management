@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :allocations
       resources :roles
       resources :encounters
+      post '/encounters/patient', to: 'encounters#get_patient_encounters'
       resources :patients
       resources :users
       post 'patients/search', to: 'patients#search'
