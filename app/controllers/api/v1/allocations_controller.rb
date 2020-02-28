@@ -46,7 +46,7 @@ module Api
 
       # DELETE /allocations/1
       def destroy
-        # @allocation.destroy
+        @allocation.destroy
       end
 
       private

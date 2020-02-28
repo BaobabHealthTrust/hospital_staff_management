@@ -43,8 +43,7 @@ module Api
 
       # DELETE /patients/1
       def destroy
-        # @patient.update(:voided, true)
-        # json_response("Deleted", 201)
+        @patient.destroy
       end
 
       private

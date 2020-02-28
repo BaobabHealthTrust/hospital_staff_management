@@ -1,4 +1,6 @@
 class Allocation < ApplicationRecord
+  include VoidedBehaviour
+
   require 'date'
   belongs_to :encounter
   before_create do

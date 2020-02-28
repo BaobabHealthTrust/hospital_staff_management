@@ -36,7 +36,7 @@ module Api
 
       # DELETE /roles/1
       def destroy
-        # @role.destroy
+        @role.destroy
       end
 
       private

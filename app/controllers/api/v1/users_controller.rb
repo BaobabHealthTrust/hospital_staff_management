@@ -40,7 +40,7 @@ module Api
             
 
             def destroy
-                
+                @user.destroy
             end
 
             private

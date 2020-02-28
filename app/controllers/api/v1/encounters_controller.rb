@@ -43,7 +43,7 @@ module Api
 
       # DELETE /encounters/1
       def destroy
-        # @encounter.update(voided, true, voided)
+        @encounter.destroy
       end
 
       private
