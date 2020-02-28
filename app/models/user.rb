@@ -6,4 +6,10 @@ class User < ApplicationRecord
     def self.search(query_params)
         self.where(query_params)
     end
+
+    def self.get_user_by_username(username)
+        self.find_by(username: username)
+    end
+
+
 end
