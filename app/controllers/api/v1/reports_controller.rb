@@ -5,6 +5,7 @@ module Api
             def staff_patient_allocation_count
                 sql_query = "SELECT u.username, u.date_of_birth, u.email, u.role_id, count(a.id) as count
                              FROM users u
+                             INNER JOIN roles ON roles.id = users.role_id
                              INNER JOIN allocations a ON  a.assigned_to = u.id"
 
                 if params[:role]
@@ -33,7 +34,7 @@ module Api
                 sql = "SELECT p.first_name, p.middle_name, p.family_name,
                        p.date_of_birth, p.email, p.address, p.phone_number, p.gender,
                        e.encounter_type, e.weight, e.height, e.temperature, e.bp,
-                       e.patient_id
+                       e.patient_id, roles.*
                        FROM patients p
                        INNER JOIN encounters e on e.patient_id = p.id
                        INNER JOIN allocations a ON e.id  = a.assigned_to
@@ -45,7 +46,7 @@ module Api
                     formated_string.push({first_name: result[0], middle_name: result[1], family_name: result[2],
                         date_of_birth: result[3], email: result[4], address: result[5], phone_number: result[6], gender: result[7],
                         encounter_type: result[8], weight: result[9], height: result[10], temperature: result[11], bp: result[12],
-                        patient_id: result[13] })
+                        patient_id: result[13], role_name: result[15]})
                 end
                 json_response(formated_string)
             end

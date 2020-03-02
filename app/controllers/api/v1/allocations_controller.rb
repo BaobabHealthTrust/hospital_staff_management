@@ -3,10 +3,11 @@ module Api
     class AllocationsController < ApplicationController
       before_action :get_assignees, only: [:update, :create]
       before_action :set_allocation, only: [:show, :update, :destroy]
+      before_action :get_patient, only: [:create]
 
       # GET /allocations
       def index
-        @allocations = Allocation.all
+        @allocations = Allocation.get_allocations
         json_response(@allocations)
       end
 
@@ -55,13 +56,17 @@ module Api
           @allocation = Allocation.find(params[:id])
         end
 
+        def get_patient
+          @patient = Patient.find(params[:patient_id])
+        end
+
         def get_assignees
           @assigned_by = User.find(params[:assigned_by])
         end
 
         # Only allow a trusted parameter "white list" through.
         def allocation_params
-          params.require(:allocation).permit(:allocation_date, :assigned_by, :assigned_to, :priority, :voided, :voided_reason, :voided_date, :encounter_id)
+          params.require(:allocation).permit(:allocation_date, :assigned_by, :assigned_to, :voided, :voided_reason, :voided_date, :priority, :patient_id)
         end
     end
   end

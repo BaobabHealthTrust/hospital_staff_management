@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_125311) do
+ActiveRecord::Schema.define(version: 2020_03_02_091612) do
 
   create_table "allocations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "allocation_date"
@@ -18,14 +18,12 @@ ActiveRecord::Schema.define(version: 2020_02_27_125311) do
     t.boolean "voided"
     t.string "voided_reason"
     t.date "voided_date"
-    t.bigint "encounter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "priority"
     t.integer "assigned_to"
-    t.bigint "users_id"
-    t.index ["encounter_id"], name: "index_allocations_on_encounter_id"
-    t.index ["users_id"], name: "index_allocations_on_users_id"
+    t.integer "patient_id"
+    t.integer "status", default: 0
   end
 
   create_table "encounters", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -41,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_125311) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.integer "allocation_id"
     t.index ["patient_id"], name: "index_encounters_on_patient_id"
   end
 
@@ -79,11 +78,12 @@ ActiveRecord::Schema.define(version: 2020_02_27_125311) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "role_id"
     t.string "status"
+    t.bigint "user_id_id"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "allocations", "encounters"
-  add_foreign_key "allocations", "users", column: "users_id"
   add_foreign_key "encounters", "patients"
   add_foreign_key "users", "roles"
 end
