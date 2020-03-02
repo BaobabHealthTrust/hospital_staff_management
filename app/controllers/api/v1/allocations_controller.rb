@@ -62,7 +62,7 @@ module Api
         end
 
         def get_assignees
-          @assigned_by = User.find(params[:assigned_by])
+          @assigned_by = User.find(params[:assigned_to])
         end
 
         # Only allow a trusted parameter "white list" through.
