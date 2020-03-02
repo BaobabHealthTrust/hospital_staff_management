@@ -6,7 +6,9 @@ module Api
 
 
             def index
-                json_response(User.all)
+                json_response(User.joins("inner join roles 
+                                        on roles.id = users.role_id")
+                                    .select("users.*, roles.role_name"))
             end
 
             def create
@@ -19,7 +21,10 @@ module Api
             end
 
             def show
-                @user = User.find(params[:id])
+                @user = User.joins("inner join roles 
+                                        on roles.id = users.role_id")
+                                    .select("users.*, roles.role_name")
+                                    .where("users.id = #{params[:id]}")
                 json_response(@user)
             end
             

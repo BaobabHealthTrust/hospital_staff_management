@@ -7,7 +7,7 @@ module Api
 
       # GET /allocations
       def index
-        @allocations = Allocation.get_allocations
+        @allocations = Allocation.get_allocations(params)
         json_response(@allocations)
       end
 
@@ -20,6 +20,7 @@ module Api
       # POST /allocations
       def create
         @allocation = Allocation.new(allocation_params)
+        @allocation.assigned_by = @current_user.id
           if @allocation.save
             begin   
               @encounter = Encounter.find(params[:encounter_id])
