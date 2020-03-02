@@ -3,6 +3,7 @@ module Api
     class EncountersController < ApplicationController
       before_action :get_patient, only: [:update, :create]
       before_action :set_encounter, only: [:show, :update, :destroy]
+      before_action :get_allocation, only: [:create]
 
       # GET /encounters
       def index
@@ -26,6 +27,7 @@ module Api
         @encounter = Encounter.new(encounter_params)
         @encounter.user_id = @current_user.id
         if @encounter.save
+          Allocation.update_allocation @encounter.allocation_id
           json_response(@encounter)
           return
         end
@@ -56,9 +58,13 @@ module Api
           @patient = Patient.find(params[:patient_id])
         end
 
+        def get_allocation
+          @allocation = Allocation.find(params[:allocation_id])
+        end
+
         # Only allow a trusted parameter "white list" through.
         def encounter_params
-          params.require(:encounter).permit(:encounter_type, :weight, :height, :temperature, :BP, :voided, :voided_reason, :voided_date, :patient_id)
+          params.require(:encounter).permit(:encounter_type, :weight, :height, :temperature, :BP, :voided, :voided_reason, :voided_date, :patient_id, :allocation_id)
         end
     end
   end
